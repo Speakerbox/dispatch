@@ -11,13 +11,14 @@ if (cluster.isMaster) {
 
   // Exit event is fired whenever a worker process exits.
   cluster.on('exit', function(worker, code, signal) {
-    console.log('worker ' + worker.process.pid + ' exited.');
-    
+    console.log('worker ' + worker.process.pid + ' exited.', code || signal);
+
     // Restart the worker
     let newWorker = cluster.fork();
     console.log('worker ' + newWorker.process.pid + ' created.');
-  });	
+  });
 } else {
   // Start the app
   require('./app');
 }
+
