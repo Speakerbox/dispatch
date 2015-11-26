@@ -4,6 +4,7 @@
     "append": true,
     "colors": true,
     "watch": true,
+    "max": 3,
     "script": "server.js",
     "watchDir": "/app"
 }

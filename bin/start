@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
+echo "Starting app..."
 forever config/forever/development.json
