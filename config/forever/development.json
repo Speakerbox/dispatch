@@ -1,0 +1,9 @@
+{
+    // Comments are supported
+    "uid": "app",
+    "append": true,
+    "colors": true,
+    "watch": true,
+    "script": "server.js",
+    "watchDir": "/app"
+}
