@@ -2,6 +2,7 @@
 
 // Setup tests
 before(function(done) {
+	require('../app');
 	done();
 });
 
