@@ -5,14 +5,14 @@ let socket = require('socket.io')();
 let port = nconf.get('socket:port');
 
 module.exports = {
+  init: init
+}
 
-	init: function(){
-		socket.listen(port);
+function init(){
+  socket.listen(port);
 
-		socket.on('connect', function (socket) {
-		
-		});
-	}
-	
+  socket.on('connect', function (socket) {
+  
+  });
 }
 
