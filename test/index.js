@@ -2,7 +2,7 @@
 
 // Setup tests
 before(function(done) {
-	require('../app');
+	require('../server');
 	done();
 });
 

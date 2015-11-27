@@ -12,10 +12,18 @@ beforeEach(function(done){
 	};
 
 	socket = socketClient.connect(socketUrl, socketOptions);
-	socket.on('connection', done);
+	socket.on('connect', function(socket){
+		done();
+	});
 });
 
 afterEach(function(done){
 	socket.disconnect();
 	done();
+});
+
+describe('socket', function() {
+  it('should accept incoming connections', function() {
+
+  });
 });
