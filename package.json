@@ -9,7 +9,6 @@
     "test-watch": "./bin/test-watch"
   },
   "dependencies": {
-    "express": "4.13.x",
     "forever": "0.15.x",
     "socket.io": "1.3.x"
   },
