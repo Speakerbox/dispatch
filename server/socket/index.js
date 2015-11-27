@@ -1,9 +1,18 @@
 'use strict';
 
+let nconf = require('nconf');
 let socket = require('socket.io')();
+let port = nconf.get('socket:port');
 
-socket.listen(3000);
+module.exports = {
 
-socket.on('connect', function (socket) {
-	console.log('connected');
-});
+	init: function(){
+		socket.listen(port);
+
+		socket.on('connect', function (socket) {
+		
+		});
+	}
+	
+}
+

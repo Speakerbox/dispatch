@@ -1,5 +1,8 @@
 'use strict';
 
+// Load config
+require('./config');
+
 let numCPUs = require('os').cpus().length;
 let cluster = require('cluster');
 
@@ -19,7 +22,7 @@ if (cluster.isMaster) {
     console.log('worker ' + newWorker.process.pid + ' created.');
   });
 } else {
-  // Start the app
+  // Start the server
   require('./server');
 }
 

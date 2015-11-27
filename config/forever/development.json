@@ -1,10 +1,9 @@
 {
-    // Comments are supported
-    "uid": "server",
-    "append": true,
-    "colors": true,
-    "watch": true,
-    "max": 3,
-    "script": "index.js",
-    "watchDir": "/server"
+  "uid": "server",
+  "append": true,
+  "colors": true,
+  "watch": true,
+  "max": 3,
+  "script": "index.js",
+  "watchDir": "/server"
 }
