@@ -1,4 +1,3 @@
 'use strict';
 
-let socket = require('./socket');
-socket.init();
+let socket = require('./socket').init();

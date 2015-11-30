@@ -1,7 +1,7 @@
 'use strict';
 
 let nconf = require('nconf');
-let socket = require('socket.io')();
+let io = require('socket.io')();
 let port = nconf.get('socket:port');
 
 module.exports = {
@@ -9,10 +9,15 @@ module.exports = {
 }
 
 function init(){
-  socket.listen(port);
+  io.listen(port);
 
-  socket.on('connect', function (socket) {
+  // Middleware for handling authentication
+  io.use(function(socket, next){
+    next();
+  })
+
+  io.on('connect', function(socket) {
   
   });
-}
 
+}

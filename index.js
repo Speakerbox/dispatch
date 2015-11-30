@@ -1,8 +1,7 @@
 'use strict';
 
 // Load config
-require('./config');
-
+let config = require('./config')();
 let numCPUs = require('os').cpus().length;
 let cluster = require('cluster');
 
