@@ -2,7 +2,8 @@
 
 // Load config
 let config = require('./config')();
-let numCPUs = require('os').cpus().length;
+let nconf = require('nconf');
+let numCPUs = nconf.get('server:workers') || require('os').cpus().length;
 let cluster = require('cluster');
 
 if (cluster.isMaster) {
@@ -22,6 +23,6 @@ if (cluster.isMaster) {
   });
 } else {
   // Start the server
-  require('./server');
+  require('./server').init();
 }
 

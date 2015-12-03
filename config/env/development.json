@@ -6,5 +6,8 @@
 	},
 	"database":  {
 		"url": "mongodb://localhost/dispatch"
+  },
+  "server": {
+  	"workers": 1
   }
 }

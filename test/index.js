@@ -1,10 +1,11 @@
 'use strict';
 
+let config = require('../config')();
+let server = require('../server');
+
 // Setup tests
 before(function(done) {
-	require('../config')();
-	require('../server');
-	done();
+	server.init(done);
 });
 
 // Teardown tests

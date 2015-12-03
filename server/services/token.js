@@ -1,12 +1,25 @@
 'use strict';
+let mongoose = require('mongoose');
+let schema = require('../models/token');
+let tokenModel = mongoose.model('token', schema);
 
-let tokenModel = require('../models/token');
-let promise = require('bluebird');
-
-module.exports = function(){
+module.exports = {
+	setToken: setToken,
 	getToken: getToken
 }
 
 function getToken(token){
-	return token;
+	return tokenModel
+		.findOne({token: token})
+		.lean()
+		.exec()
+		.then(function(token){
+			if(!token){
+				throw new Error('Token not found');
+			}
+		});
+}
+
+function setToken(params){
+	
 }

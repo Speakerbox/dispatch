@@ -2,41 +2,37 @@
 
 let nconf = require('nconf');
 let io = require('socket.io')();
+let tokenService = require('../services/token');
 let port = nconf.get('socket:port');
-let tokenService = require('../services/token')
 
 module.exports = {
   init: init
 }
 
-function init(){
+function init(done) {
   io.listen(port);
 
   // Middleware for handling authentication
   io.use(authentication);
-
-  io.on('connect', function(socket) {
-    console.log('connected');
-  });
+  io.on('connect', connect);
+  done();
 }
 
-function authentication(socket, next){
-  let token = socket.handshake.query.token;
-  let err;
+function connect() {
+  console.log('connected');
+}
 
+function authentication(socket, next) {
+  let token = socket.handshake.query.token;
   if(!token){
     next({'message': 'Must provide a token'});
     return;
   }
-
- tokenService
+    
+  tokenService
   .getToken(token)
-  .then(function(token){
-    if(token){
-      next();
-    }
-  })
+  .then(next)
   .catch(function(err){
-      next({message: 'Invalid token' });
+    next({message: 'Invalid token' });
   });
 }

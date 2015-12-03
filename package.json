@@ -9,6 +9,7 @@
     "test-watch": "./bin/test-watch"
   },
   "dependencies": {
+    "async": "^1.5.0",
     "bluebird": "3.0.x",
     "dotenv": "1.2.x",
     "forever": "0.15.x",
