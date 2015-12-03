@@ -24,7 +24,8 @@ function connect() {
 
 function authentication(socket, next) {
   let token = socket.handshake.query.token;
-  if(!token){
+  
+  if(!token) {
     next({'message': 'Must provide a token'});
     return;
   }
@@ -32,7 +33,5 @@ function authentication(socket, next) {
   tokenService
   .getToken(token)
   .then(next)
-  .catch(function(err){
-    next({message: 'Invalid token' });
-  });
+  .catch(next);
 }

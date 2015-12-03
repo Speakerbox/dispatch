@@ -15,9 +15,4 @@ module.exports = function(){
     .argv()
     .env()
     .file(localConfig);
-}
-
-
-
-
-
+}();

@@ -1,10 +1,12 @@
 'use strict';
 
-// Load config
-let config = require('./config')();
+// Load our config before anything else
+require('./config');
+
 let nconf = require('nconf');
 let numCPUs = nconf.get('server:workers') || require('os').cpus().length;
 let cluster = require('cluster');
+let server = require('./server');
 
 if (cluster.isMaster) {
   // Fork workers
@@ -23,6 +25,5 @@ if (cluster.isMaster) {
   });
 } else {
   // Start the server
-  require('./server').init();
+  server.init();
 }
-

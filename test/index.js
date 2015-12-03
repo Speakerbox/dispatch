@@ -1,6 +1,6 @@
 'use strict';
 
-let config = require('../config')();
+require('../config');
 let server = require('../server');
 
 // Setup tests
