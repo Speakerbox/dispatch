@@ -1,8 +1,8 @@
 'use strict';
 
 let async = require('async');
-let storage = require('./storage');
-let socket = require('./socket');
+let storage = require('./components/storage');
+let streaming = require('./components/streaming');
 
 module.exports = {
 	init: init
@@ -11,8 +11,7 @@ module.exports = {
 function init(done){
 	var tasks = [
 		storage.init,
-		socket.init
+		streaming.init
 	];
-
 	async.series(tasks, done);
 };

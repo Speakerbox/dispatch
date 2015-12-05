@@ -2,7 +2,7 @@
 
 let nconf = require('nconf');
 let io = require('socket.io')();
-let tokenService = require('../services/token');
+let tokenService = require('../../../services/token');
 let port = nconf.get('socket:port');
 
 module.exports = {
@@ -34,10 +34,9 @@ function authentication(socket, next) {
     
   tokenService.getToken(token, function(err, token){
     if(err || !token){
-      next({'message': 'Invalid token'});
+      return next({'message': 'Invalid token'});
     }
-    else{
-      next();
-    }
+      
+    next();
   });
 }
