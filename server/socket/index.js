@@ -10,11 +10,13 @@ module.exports = {
 }
 
 function init(done) {
-  io.listen(port);
 
-  // Middleware for handling authentication
+  // middleware for handling authentication
   io.use(authentication);
+  
   io.on('connect', connect);
+  io.listen(port);
+  
   done();
 }
 
@@ -30,8 +32,12 @@ function authentication(socket, next) {
     return;
   }
     
-  tokenService
-  .getToken(token)
-  .then(next)
-  .catch(next);
+  tokenService.getToken(token, function(err, token){
+    if(err || !token){
+      next({'message': 'Invalid token'});
+    }
+    else{
+      next();
+    }
+  });
 }

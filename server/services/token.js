@@ -9,16 +9,8 @@ module.exports = {
   getToken: getToken
 }
 
-function getToken(token){
-  return tokenModel
-    .findOne({token: token})
-    .lean()
-    .exec()
-    .then(function(token){
-      if(!token){
-        throw new Error('Invalid token');
-      }
-    });
+function getToken(token, done){
+  tokenModel.findOne({token: token}, done);
 }
 
 function setToken(params){

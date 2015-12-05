@@ -9,7 +9,6 @@ let cluster = require('cluster');
 let server = require('./server');
 
 if (cluster.isMaster) {
-  // Fork workers
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
   }
@@ -19,11 +18,9 @@ if (cluster.isMaster) {
     // Restart the worker
     let newWorker = cluster.fork();
 
-    // Log the respawn
     console.log('worker ' + worker.process.pid + ' exited.', code || signal);
     console.log('worker ' + newWorker.process.pid + ' created.');
   });
 } else {
-  // Start the server
   server.init();
 }

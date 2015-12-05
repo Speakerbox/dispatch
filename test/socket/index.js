@@ -22,7 +22,7 @@ describe('socket', function() {
     });
   });
 
-  it('should not connect without an invalid token', function(done) {
+  it('should not connect with an invalid token', function(done) {
     let url = socketUrl + '?token=XYLznXKRDwMsshjRJFpBsLngUiEyAx';
     socket = ioClient.connect(url, socketOptions);
 
