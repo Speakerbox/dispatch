@@ -2,7 +2,7 @@
 
 let nconf = require('nconf');
 let io = require('socket.io')();
-let tokenService = require('../../services/token');
+let channelGuide = require('../../services/channel-guide');
 let port = nconf.get('socket:port');
 
 module.exports = {
@@ -32,7 +32,7 @@ function authentication(socket, next) {
     return;
   }
     
-  tokenService.getToken(token, function(err, token){
+  channelGuide.findChannelByKey(token, function(err, token){
     if(err || !token){
       return next({'message': 'Invalid token'});
     }
