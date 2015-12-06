@@ -2,7 +2,7 @@
 
 let nconf = require('nconf');
 let io = require('socket.io')();
-let tokenService = require('../../../services/token');
+let tokenService = require('../../services/token');
 let port = nconf.get('socket:port');
 
 module.exports = {
