@@ -1,10 +1,12 @@
 "use strict";
 
 let mongoose = require('mongoose');
-let types = mongoose.Schema.Types;
-let schema = new mongoose.Schema({
+let Schema = mongoose.Schema;
+let Types = Schema.Types;
+
+let channelGuideSchema = new Schema({
   key: { type: String },
-  channels: [{ type: types.ObjectId, ref: 'channel'}]
+  channels: [{ type: Types.ObjectId, ref: 'channel'}]
 });
 
-module.exports = mongoose.model('channelGuide', schema);
+module.exports = mongoose.model('channelGuide', channelGuideSchema);

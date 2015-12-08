@@ -9,7 +9,7 @@ module.exports = function(done){
     createChannel,
     addChannelLookup
   ], done);
-}
+};
 
 function createChannel(next){
   let params = {
@@ -17,7 +17,7 @@ function createChannel(next){
     created: new Date()
   };
 
-  channel.create(params, next)
+  channel.create(params, next);
 }
 
 function addChannelLookup(channel, next){
@@ -26,5 +26,5 @@ function addChannelLookup(channel, next){
     channels: [channel._id]
   };
 
-  channelGuide.create(params, next)
+  channelGuide.create(params, next);
 }
