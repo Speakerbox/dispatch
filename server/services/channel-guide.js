@@ -1,6 +1,6 @@
 'use strict';
 
-let channelGuide = require('../models/channel-guide');
+let channelGuide = require('mongoose').model('channelGuide');
 
 module.exports = {
 	addLookup: addLookup,

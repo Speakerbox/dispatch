@@ -1,10 +1,9 @@
 "use strict";
 
-let mongoose = require('mongoose');
-let types = mongoose.Schema.Types;
+let Schema = require('mongoose').Schema;
 
-module.exports = new mongoose.Schema({
-	ip: { type: String }
+module.exports = new Schema({
+	ip: { type: String },
 	opened: { type: Date },
 	closed: { type: Date }
 });

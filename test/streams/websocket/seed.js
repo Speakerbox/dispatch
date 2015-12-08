@@ -1,8 +1,9 @@
 'use strict';
 
 let async = require('async');
-let channel = require('../../../server/models/channel');
-let channelGuide = require('../../../server/models/channel-guide');
+let mongoose = require('mongoose');
+let channel = mongoose.model('channel');
+let channelGuide = mongoose.model('channelGuide');
 
 module.exports = function(done){
   async.waterfall([

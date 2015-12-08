@@ -1,8 +1,6 @@
 'use strict';
 
-let mongoose = require('mongoose');
-let schema = require('../models/channel');
-let channel = mongoose.model('channel', schema);
+let channel = require('mongoose').model('channel');
 
 module.exports = {
 	createChannel: createChannel
@@ -18,6 +16,6 @@ function createChannel(params, done) {
 		name: params.name,
 		created: new Date()
 	}
-
+    
 	channel.create(params, done);
 }
