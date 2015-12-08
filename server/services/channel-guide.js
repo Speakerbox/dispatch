@@ -1,13 +1,36 @@
 'use strict';
 
-let mongoose = require('mongoose');
-let schema = require('../models/channel-guide');
-let channelGuide = mongoose.model('channelGuide', schema);
+let channelGuide = require('../models/channel-guide');
 
 module.exports = {
-  findChannelByKey: findChannelByKey
+	addLookup: addLookup,
+  lookupChannel: lookupChannel
 }
 
-function findChannelByKey(token, done){
-  channelGuide.findOne({key: token}, done);
+function lookupChannel(params, done){
+	if(!params.key){
+		done('Please provide a key.');
+		return;
+	}
+
+  channelGuide.findOne({key: params.key}, done);
+}
+
+function addLookup(params, done){
+	if(!params.key){
+		done('Please provide a key.');
+		return;
+	}
+
+	if(!params.channels){
+		done('Please provide a channel.');
+		return;
+	}
+
+	let lookup = {
+		key: params.key,
+		channels: params.channels
+	}
+
+  channelGuide.addLookup(lookup, done);
 }

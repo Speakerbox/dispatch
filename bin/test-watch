@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 echo "Running tests..."
-mocha --opts=test/mocha.opts -w test/
+mocha --opts=test/mocha.opts -w ./test/index.js test/
