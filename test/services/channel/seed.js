@@ -2,7 +2,7 @@
 
 let async = require('async');
 let mongoose = require('mongoose');
-let channel = mongoose.model('channel');
+let Channel = mongoose.model('Channel');
 
 module.exports = function(done){
   let tasks = [
@@ -18,5 +18,5 @@ function createChannel(next){
     created: new Date()
   };
 
-  channel.create(params, next);
+  Channel.create(params, next);
 }

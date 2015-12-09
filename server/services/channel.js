@@ -1,6 +1,6 @@
 'use strict';
 
-let channel = require('mongoose').model('channel');
+let Channel = require('mongoose').model('Channel');
 
 module.exports = {
 	createChannel: createChannel
@@ -17,5 +17,5 @@ function createChannel(params, done) {
 		created: new Date()
 	}
     
-	channel.create(params, done);
+	Channel.create(params, done);
 }

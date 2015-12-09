@@ -1,6 +1,6 @@
 'use strict';
 
-let channelGuide = require('mongoose').model('channelGuide');
+let ChannelGuide = require('mongoose').model('ChannelGuide');
 
 module.exports = {
 	addLookup: addLookup,
@@ -13,10 +13,11 @@ function lookupChannel(params, done){
 		return;
 	}
 
-  channelGuide.findOne({key: params.key}, done);
+  ChannelGuide.findOne({key: params.key}, done);
 }
 
 function addLookup(params, done){
+
 	if(!params.key){
 		done('Please provide a key.');
 		return;
@@ -32,6 +33,6 @@ function addLookup(params, done){
 		channels: params.channels
 	}
 
-  channelGuide.addLookup(lookup, done);
+  ChannelGuide.create(lookup, done);
 }
 

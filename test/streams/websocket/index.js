@@ -18,6 +18,7 @@ describe('Websocket', function() {
   describe('connection', function(){
     it('should not connect without a token', function(done) {
       socket = ioClient.connect(socketUrl, socketOptions);
+      
       socket.on('error', function(err){
         expect(err).to.equal('Please provide a token.');
         expect(socket.connected).to.equal(false);
@@ -28,6 +29,7 @@ describe('Websocket', function() {
     it('should not connect with an invalid token', function(done) {
       let url = socketUrl + '?token=XYLznXKRDwMsshjRJFpBsLngUiEyAx';
       socket = ioClient.connect(url, socketOptions);
+      
       socket.on('error', function(err){
         expect(err).to.equal('Could not find a channel for that token.');
         done();
@@ -37,6 +39,7 @@ describe('Websocket', function() {
     it('should connect with a valid token', function(done) {
       let url = socketUrl + '?token=ayzWzvCbWVgWrrQyooQrwGtnXMNYDd';
       socket = ioClient.connect(url, socketOptions);
+      
       socket.on('connect', function(){
         done();
       });
