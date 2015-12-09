@@ -3,15 +3,13 @@
 let async = require('async');
 let mongoose = require('mongoose');
 let channel = mongoose.model('channel');
-let channelGuide = mongoose.model('channelGuide');
 
 module.exports = function(done){
   let tasks = [
-    createChannel,
-    addChannelLookup
+    createChannel
   ];
 
-  async.waterfall(tasks, done);
+  async.parallel(tasks, done);
 };
 
 function createChannel(next){
@@ -21,13 +19,4 @@ function createChannel(next){
   };
 
   channel.create(params, next);
-}
-
-function addChannelLookup(channel, next){
-  let params = {
-    key: 'ayzWzvCbWVgWrrQyooQrwGtnXMNYDd',
-    channels: [channel._id]
-  };
-
-  channelGuide.create(params, next);
 }
