@@ -1,5 +1,5 @@
 'use strict';
-
+let async = require('async');
 let ChannelGuide = require('mongoose').model('ChannelGuide');
 
 module.exports = {
@@ -27,12 +27,24 @@ function addLookup(params, done){
 		done('Please provide a channel.');
 		return;
 	}
+  
+  async.waterfall([
+    function checkForExistingLookup(next){
+      ChannelGuide.findOne({key: params.key}, next);
+    },
+    function addNewLookup(existingLookup, next){
+      if(existingLookup){
+        next('A lookup already exists for that key.');
+        return;
+      }
 
-	let lookup = {
-		key: params.key,
-		channels: params.channels
-	}
+      let newLookup = {
+        key: params.key,
+        channels: params.channels
+      };
 
-  ChannelGuide.create(lookup, done);
+      ChannelGuide.create(newLookup, next);
+    }
+  ], done);
 }
 

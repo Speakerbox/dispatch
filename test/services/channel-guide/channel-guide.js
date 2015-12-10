@@ -11,9 +11,10 @@ describe('Channel guide service', function() {
   describe('add lookup', function(){
     let lookup;
 
-    before(function(){
+    beforeEach(function(done){
       ChannelGuide.findOne({}, function(err, doc){
         lookup = doc;
+        done();
       });
     });
 
@@ -22,10 +23,10 @@ describe('Channel guide service', function() {
         channels: [lookup._id]
       };
 
-      channelGuideService.addLookup(params, function(err, lookup){
+      channelGuideService.addLookup(params, function(err){
         expect(err).to.equal('Please provide a key.');
         done();
-      })
+      });
     });
 
     it('should fail with a duplicate key', function(done){
@@ -34,10 +35,10 @@ describe('Channel guide service', function() {
         channels: [lookup._id]
       };
 
-      channelGuideService.addLookup(params, function(err, lookup){
+      channelGuideService.addLookup(params, function(err){
         expect(err).to.equal('A lookup already exists for that key.');
         done();
-      })
+      });
     });
   });
 });

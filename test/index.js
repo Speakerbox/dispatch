@@ -16,5 +16,5 @@ beforeEach(function(done){
 
 // Teardown tests
 after(function(done) {
-	done();
+  mongoose.connection.db.dropDatabase(done);
 });
