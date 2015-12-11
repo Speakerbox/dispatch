@@ -32,14 +32,14 @@ function authentication(socket, next) {
     key: token
   }
     
-  channelGuideService.lookupChannel(params, function(err, channel){
+  channelGuideService.findChannels(params, function(err, channel){
     if(err){
       next({'message': err});
       return;
     }
 
     if(!channel){
-      next({'message': 'Could not find a channel for that token.'});
+      next({'message': 'Could not find any channels for that token.'});
       return;
     }
 

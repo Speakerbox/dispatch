@@ -31,7 +31,7 @@ describe('Websocket', function() {
       socket = ioClient.connect(url, socketOptions);
 
       socket.on('error', function(err){
-        expect(err).to.equal('Could not find a channel for that token.');
+        expect(err).to.equal('Could not find any channels for that token.');
         done();
       });
     });

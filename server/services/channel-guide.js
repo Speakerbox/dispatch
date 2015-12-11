@@ -4,10 +4,12 @@ let ChannelGuide = require('mongoose').model('ChannelGuide');
 
 module.exports = {
 	addLookup: addLookup,
-  lookupChannel: lookupChannel
+  findChannels: findChannels,
+  addChannel: addChannel,
+  removeChannel: removeChannel
 }
 
-function lookupChannel(params, done){
+function findChannels(params, done){
 	if(!params.key){
 		done('Please provide a key.');
 		return;
@@ -24,19 +26,19 @@ function addLookup(params, done){
 	}
 
 	if(!params.channels){
-		done('Please provide a channel.');
+		done('Please provide at least one channel.');
 		return;
 	}
   
   async.waterfall([
-    function checkForExistingLookup(next){
-      ChannelGuide.findOne({key: params.key}, next);
+    function(next) {
+      checkForExistingLookup(params.key, next);
     },
-    function addNewLookup(existingLookup, next){
+    function(existingLookup, next) {
       if(existingLookup){
-        next('A lookup already exists for that key.');
-        return;
-      }
+          next('A lookup already exists for that key.');
+          return;
+        }
 
       let newLookup = {
         key: params.key,
@@ -48,3 +50,38 @@ function addLookup(params, done){
   ], done);
 }
 
+function addChannel(params, done){
+  if(!params.key){
+    done('Please provide a key.');
+    return;
+  }
+
+  if(!params.channel){
+    done('Please provide at least one channel.');
+    return;
+  }
+
+  let query = {key: params.key};
+  let update = {$addToSet: {channels: params.channel}};
+  let options = {new: true};
+
+  ChannelGuide.findOneAndUpdate(query, update, options, done);
+}
+
+function removeChannel(params, done){
+  if(!params.key){
+    done('Please provide a key.');
+    return;
+  }
+
+  if(!params.channel){
+    done('Please provide at least one channel.');
+    return;
+  }
+}
+
+/***** Helpers *****/
+
+function checkForExistingLookup(key, done){
+  ChannelGuide.findOne({key: key}, done);
+}
