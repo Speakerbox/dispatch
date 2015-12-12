@@ -78,6 +78,12 @@ function removeChannel(params, done){
     done('Please provide at least one channel.');
     return;
   }
+
+  let query = {key: params.key};
+  let update = {$pull: {channels: params.channel}};
+  let options = {new: true};
+
+  ChannelGuide.findOneAndUpdate(query, update, options, done);
 }
 
 /***** Helpers *****/
