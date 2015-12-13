@@ -92,7 +92,11 @@ describe('Channel Guide Service', function() {
     let lookup;
 
     beforeEach(function(done) {
-      ChannelGuide.findOne({key: 'DfcbuRvwbnCXFbHBXQfqbbyshcyjwh'}, function(err, doc){
+      let params = {
+        key: 'DfcbuRvwbnCXFbHBXQfqbbyshcyjwh',
+      };
+
+      ChannelGuide.findOne(params, function(err, doc){
         lookup = doc;
         done();
       });

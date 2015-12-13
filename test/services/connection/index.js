@@ -60,7 +60,7 @@ describe('Connection Service', function() {
     it('should fail if a socket id is not provided', function(done){
       let params = {};
 
-      connectionService.update(params, function(err, doc){
+      connectionService.update(params, function(err){
         expect(err).to.equal('Please provide a socket id.');
         done();
       });
