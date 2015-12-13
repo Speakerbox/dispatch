@@ -4,6 +4,8 @@ let nconf = require('nconf');
 let io = require('socket.io')();
 let port = nconf.get('socket:port');
 let channelGuideService = require('../../services/channel-guide');
+let connectionService = require('../../services/connection');
+
 
 module.exports = {
   init: init
@@ -18,8 +20,12 @@ function init(done) {
 }
 
 function connect(socket) {
-  console.log(socket.id);
-  console.log(socket.request.connection.remoteAddress);
+  let params = {
+    socketId: socket.id,
+    ip: socket.request.connection.remoteAddress
+  };
+
+  connectionService.log(params);
 }
 
 function authentication(socket, next) {

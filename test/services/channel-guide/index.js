@@ -7,10 +7,10 @@ let ChannelGuide = mongoose.model('ChannelGuide');
 let Types = mongoose.Types;
 let seed = require('./seed');
 
-describe('Channel guide service', function() {
+describe('Channel Guide Service', function() {
   beforeEach(seed);
 
-  describe('add lookup', function(){
+  describe('.addLookup()', function(){
     let channelId = new Types.ObjectId;
 
     it('should fail without a key', function(done){
@@ -49,7 +49,7 @@ describe('Channel guide service', function() {
     });
   });
 
-  describe('add channel', function(){
+  describe('.addChannel()', function(){
     let channelId = new Types.ObjectId;
 
     it('should fail without a key', function(done){
@@ -88,7 +88,7 @@ describe('Channel guide service', function() {
     });
   });
 
-  describe('remove channel', function(){
+  describe('.removeChannel()', function(){
     let lookup;
 
     beforeEach(function(done) {

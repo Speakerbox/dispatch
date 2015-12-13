@@ -14,7 +14,7 @@ module.exports = function(done){
 
 function createChannel(next){
   let params = {
-    socket: 'kuG9yjWMH9RNGMJ7AAAA',
+    socketId: 'kuG9yjWMH9RNGMJ7AAAA',
     ip: '::ffff:127.0.0.1',
     opened: new Date()
   };

@@ -10,7 +10,7 @@ let Channel = mongoose.model('Channel');
 describe('Channel Service', function() {
   beforeEach(seed);
 
-  describe('create channel', function(){
+  describe('.createChannel()', function(){
 
     it('should fail if a name is not provided', function(done){
       let params = {};
@@ -44,7 +44,7 @@ describe('Channel Service', function() {
     });
   });
 
-  describe('update channel', function(){
+  describe('.updateChannel()', function(){
     let channel;
 
     beforeEach(function(done){
@@ -78,7 +78,7 @@ describe('Channel Service', function() {
     });
   });
 
-  describe('delete channel', function(){
+  describe('.deleteChannel()', function(){
 
     let channel;
 
@@ -109,6 +109,4 @@ describe('Channel Service', function() {
       });
     });
   });
-
-
 });

@@ -15,7 +15,7 @@ describe('Websocket', function() {
     'force new connection': true
   };
 
-  describe('connection', function(){
+  describe('onConnect()', function(){
     it('should not connect without a token', function(done) {
       socket = ioClient.connect(socketUrl, socketOptions);
 

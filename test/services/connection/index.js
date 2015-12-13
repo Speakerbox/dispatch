@@ -10,7 +10,7 @@ let Connection = mongoose.model('Connection');
 describe('Connection Service', function() {
   beforeEach(seed);
 
-  describe('log connection', function(){
+  describe('.log()', function(){
 
     it('should fail if a socket id is not provided', function(done){
       let params = {
@@ -25,7 +25,7 @@ describe('Connection Service', function() {
 
     it('should fail if a an ip address id is not provided', function(done){
       let params = {
-        socket: 'V5sOLmKfyyeumWv7AAAA'
+        socketId: 'V5sOLmKfyyeumWv7AAAA'
       };
 
       connectionService.log(params, function(err){
@@ -34,11 +34,10 @@ describe('Connection Service', function() {
       });
     });
 
-    
     it('should record a new connection has been opened', function(done){
       let params = {
         ip: '::ffff:127.0.0.1',
-        socket: 'V5sOLmKfyyeumWv7AAAA'
+        socketId: 'V5sOLmKfyyeumWv7AAAA'
       };
 
       connectionService.log(params, function(err, result){
@@ -48,7 +47,7 @@ describe('Connection Service', function() {
     });
   });
 
-  describe('update connection', function(){
+  describe('.update()', function(){
     let connection;
 
     beforeEach(function(done){
@@ -61,7 +60,7 @@ describe('Connection Service', function() {
     it('should fail if a socket id is not provided', function(done){
       let params = {};
 
-      connectionService.update(params, function(err){
+      connectionService.update(params, function(err, doc){
         expect(err).to.equal('Please provide a socket id.');
         done();
       });
@@ -69,11 +68,11 @@ describe('Connection Service', function() {
 
     it('should mark the connection as closed', function(done){
       let params = {
-        socket: connection.socket
+        socketId: connection.socketId
       };
 
       connectionService.update(params, function(err, result){
-        expect(result.socket).to.equal(params.socket);
+        expect(result.socketId).to.equal(params.socketId);
         expect(result.closed).to.not.equal(null);
         done();
       });

@@ -14,7 +14,7 @@ function log(params, done){
     return;
   }
 
-  if(!params.socket) {
+  if(!params.socketId) {
     done('Please provide a socket id.');
     return;
   }
@@ -22,7 +22,7 @@ function log(params, done){
   let date = new Date();
   var log = {
     ip: params.ip,
-    socket: params.socket,
+    socketId: params.socketId,
     created: date
   };
 
@@ -30,14 +30,20 @@ function log(params, done){
 }
 
 function update(params, done){
-  if(!params.socket){
+  if(!params.socketId){
     done('Please provide a socket id.');
+    return;
   }
 
   let date = new Date();
-  let query = { socket: params.socket };
+  let query = { socketId: params.socketId };
   let update = { closed: date };
-  let option = { new: true };
+  let options = { new: true };
 
-  Connection.findOneAndUpdate(query, update, options, done);
+  Connection.findOneAndUpdate(query, update, options, function(err, doc){
+    // Callback is optional
+    if(done){
+      done(err, doc);
+    }
+  });
 }
