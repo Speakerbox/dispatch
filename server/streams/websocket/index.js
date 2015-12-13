@@ -17,7 +17,9 @@ function init(done) {
   done();
 }
 
-function connect() {
+function connect(socket) {
+  console.log(socket.id);
+  console.log(socket.request.connection.remoteAddress);
 }
 
 function authentication(socket, next) {

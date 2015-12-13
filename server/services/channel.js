@@ -21,9 +21,9 @@ function createChannel(params, done) {
     },
     function(existingChannel, next) {
       if(existingChannel) {
-          next('A channel with that name already exists.');
-          return;
-        }
+        next('A channel with that name already exists.');
+        return;
+      }
 
       let newChannel = {
         name: params.name,

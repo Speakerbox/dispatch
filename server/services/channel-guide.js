@@ -29,24 +29,28 @@ function addLookup(params, done){
 		done('Please provide at least one channel.');
 		return;
 	}
+
+  function checkForExistingLookup(next){
+    ChannelGuide.findOne({key: params.key}, next);
+  }
+
+  function addNewLookup(existingLookup, next){
+    if(existingLookup){
+      next('A lookup already exists for that key.');
+      return;
+    }
+
+    let newLookup = {
+      key: params.key,
+      channels: params.channels
+    };
+
+    ChannelGuide.create(newLookup, next);
+  }
   
   async.waterfall([
-    function(next) {
-      checkForExistingLookup(params.key, next);
-    },
-    function(existingLookup, next) {
-      if(existingLookup){
-          next('A lookup already exists for that key.');
-          return;
-        }
-
-      let newLookup = {
-        key: params.key,
-        channels: params.channels
-      };
-
-      ChannelGuide.create(newLookup, next);
-    }
+    checkForExistingLookup,
+    addNewLookup
   ], done);
 }
 
@@ -84,10 +88,4 @@ function removeChannel(params, done){
   let options = {new: true};
 
   ChannelGuide.findOneAndUpdate(query, update, options, done);
-}
-
-/***** Helpers *****/
-
-function checkForExistingLookup(key, done){
-  ChannelGuide.findOne({key: key}, done);
 }
