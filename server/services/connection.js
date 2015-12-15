@@ -23,7 +23,7 @@ function connectionOpened(params, done){
   var log = {
     ip: params.ip,
     socketId: params.socketId,
-    created: date
+    opened: date
   };
 
   Connection.create(log, done);
