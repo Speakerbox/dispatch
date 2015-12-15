@@ -15,17 +15,30 @@ function init(done) {
   // middleware for handling authentication
   io.use(authentication);
   io.on('connect', connect);
+  io.on('disconnect', disconnect);
   io.listen(port);
   done();
 }
 
-function connect(socket) {
+function connect(socket) { 
   let params = {
     socketId: socket.id,
     ip: socket.request.connection.remoteAddress
   };
 
-  connectionService.log(params);
+  connectionService.connectionOpened(params);
+  console.log('Socket ' + socket.id + ' has connected.');
+}
+
+function disconnect(socket){
+
+  let params = {
+    socketId: socket.id,
+    ip: socket.request.connection.remoteAddress
+  };
+
+  connectionService.connectionClosed(params);
+  console.log('Socket ' + socket.id + ' has disconnected.');
 }
 
 function authentication(socket, next) {
@@ -40,13 +53,13 @@ function authentication(socket, next) {
     key: token
   }
     
-  channelGuideService.findChannels(params, function(err, channel){
+  channelGuideService.findChannels(params, function(err, channels){
     if(err){
       next({'message': err});
       return;
     }
 
-    if(!channel){
+    if(!channels){
       next({'message': 'Could not find any channels for that token.'});
       return;
     }

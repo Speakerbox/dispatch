@@ -5,6 +5,8 @@ let ioClient = require('socket.io-client');
 let nconf = require('nconf');
 let socketUrl = nconf.get('socket:url');
 let seed = require('./seed');
+let mongoose = require('mongoose');
+let Connection = mongoose.model('Connection');
 
 describe('Websocket', function() {
   beforeEach(seed);
@@ -43,6 +45,28 @@ describe('Websocket', function() {
       socket.on('connect', function(){
         done();
       });
+    });
+  });
+
+  describe('onDisconnect()', function(){
+    beforeEach(function(done){
+      let url = socketUrl + '?token=ayzWzvCbWVgWrrQyooQrwGtnXMNYDd';
+      socket = ioClient.connect(url, socketOptions);
+
+      socket.on('connect', done);
+    });
+
+    it('should log the disconnect event', function(done) {
+      let url = socketUrl + '?token=ayzWzvCbWVgWrrQyooQrwGtnXMNYDd';
+      socket = ioClient.connect(url, socketOptions);
+      socket.disconnect(function(a,b){
+        console.log('disconnected');
+      });
+
+      Connection.findOne({socketId: socket.id}, function(err, doc){
+        console.log(err, doc);
+        done()
+      })
     });
   });
 });

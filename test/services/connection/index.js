@@ -10,14 +10,14 @@ let Connection = mongoose.model('Connection');
 describe('Connection Service', function() {
   beforeEach(seed);
 
-  describe('.log()', function(){
+  describe('.connectionOpened()', function(){
 
     it('should fail if a socket id is not provided', function(done){
       let params = {
         ip: '::ffff:127.0.0.1'
       };
 
-      connectionService.log(params, function(err){
+      connectionService.connectionOpened(params, function(err){
         expect(err).to.equal('Please provide a socket id.');
         done();
       });
@@ -28,7 +28,7 @@ describe('Connection Service', function() {
         socketId: 'V5sOLmKfyyeumWv7AAAA'
       };
 
-      connectionService.log(params, function(err){
+      connectionService.connectionOpened(params, function(err){
         expect(err).to.equal('Please provide an ip address.');
         done();
       });
@@ -40,14 +40,14 @@ describe('Connection Service', function() {
         socketId: 'V5sOLmKfyyeumWv7AAAA'
       };
 
-      connectionService.log(params, function(err, result){
+      connectionService.connectionOpened(params, function(err, result){
         expect(result.name).to.equal(params.name);
         done();
       });
     });
   });
 
-  describe('.update()', function(){
+  describe('.connectionClosed()', function(){
     let connection;
 
     beforeEach(function(done){
@@ -60,7 +60,7 @@ describe('Connection Service', function() {
     it('should fail if a socket id is not provided', function(done){
       let params = {};
 
-      connectionService.update(params, function(err){
+      connectionService.connectionClosed(params, function(err){
         expect(err).to.equal('Please provide a socket id.');
         done();
       });
@@ -71,7 +71,7 @@ describe('Connection Service', function() {
         socketId: connection.socketId
       };
 
-      connectionService.update(params, function(err, result){
+      connectionService.connectionClosed(params, function(err, result){
         expect(result.socketId).to.equal(params.socketId);
         expect(result.closed).to.not.equal(null);
         done();

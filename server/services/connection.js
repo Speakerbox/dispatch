@@ -4,11 +4,11 @@ let mongoose = require('mongoose');
 let Connection = mongoose.model('Connection');
 
 module.exports = {
-  log: log,
-  update: update
+  connectionOpened: connectionOpened,
+  connectionClosed: connectionClosed
 }
 
-function log(params, done){
+function connectionOpened(params, done){
   if(!params.ip) {
     done('Please provide an ip address.');
     return;
@@ -29,7 +29,7 @@ function log(params, done){
   Connection.create(log, done);
 }
 
-function update(params, done){
+function connectionClosed(params, done){
   if(!params.socketId){
     done('Please provide a socket id.');
     return;
