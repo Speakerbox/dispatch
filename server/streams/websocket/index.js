@@ -15,30 +15,33 @@ function init(done) {
   // middleware for handling authentication
   io.use(authentication);
   io.on('connect', connect);
-  io.on('disconnect', disconnect);
   io.listen(port);
   done();
 }
 
 function connect(socket) { 
+  console.log('Socket ' + socket.id + ' has connected.');
+
   let params = {
     socketId: socket.id,
     ip: socket.request.connection.remoteAddress
   };
 
+  socket.on('disconnect', function(message){
+    disconnect(socket);
+  });
+
   connectionService.connectionOpened(params);
-  console.log('Socket ' + socket.id + ' has connected.');
 }
 
-function disconnect(socket){
+function disconnect(socket) {
+  console.log('Socket ' + socket.id + ' has disconnected.');
 
   let params = {
     socketId: socket.id,
-    ip: socket.request.connection.remoteAddress
   };
 
   connectionService.connectionClosed(params);
-  console.log('Socket ' + socket.id + ' has disconnected.');
 }
 
 function authentication(socket, next) {
