@@ -3,3 +3,4 @@
 --recursive
 --colors
 --slow 300
+--bail
