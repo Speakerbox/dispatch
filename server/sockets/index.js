@@ -3,8 +3,8 @@
 let nconf = require('nconf');
 let io = require('socket.io')();
 let port = nconf.get('socket:port');
-let channelGuideService = require('../../services/channel-guide');
-let connectionService = require('../../services/connection');
+let channelGuideService = require('../services/channel-guide');
+let connectionService = require('../services/connection');
 
 
 module.exports = {
@@ -20,7 +20,7 @@ function init(done) {
 }
 
 function connect(socket) { 
-  console.log('Socket ' + socket.id + ' has connected.');
+  console.log('socket ' + socket.id + ' has connected.');
 
   let params = {
     socketId: socket.id,
@@ -35,7 +35,7 @@ function connect(socket) {
 }
 
 function disconnect(socket) {
-  console.log('Socket ' + socket.id + ' has disconnected.');
+  console.log('socket ' + socket.id + ' has disconnected.');
 
   let params = {
     socketId: socket.id,
@@ -46,6 +46,8 @@ function disconnect(socket) {
 
 function authentication(socket, next) {
   let token = socket.handshake.query.token;
+
+  console.log('authenticating socket ' + socket.id + ' with token ' + token + '. ip address is ' + socket.request.connection.remoteAddress);
   
   if(!token) {
     next({'message': 'Please provide a token.'});

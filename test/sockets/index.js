@@ -59,14 +59,14 @@ describe('Websocket', function() {
     it('should log the disconnect event', function(done) {
       let url = socketUrl + '?token=ayzWzvCbWVgWrrQyooQrwGtnXMNYDd';
       socket = ioClient.connect(url, socketOptions);
-      socket.disconnect(function(a,b){
+      socket.disconnect(function(){
         console.log('disconnected');
       });
 
       Connection.findOne({socketId: socket.id}, function(err, doc){
         console.log(err, doc);
-        done()
-      })
+        done();
+      });
     });
   });
 });
