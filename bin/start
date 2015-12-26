@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-echo "dispatch..."
+echo "Starting dispatch..."
 forever --minUptime=1000 --spinSleepTime=1000 ./config/forever/development.json

@@ -47,7 +47,7 @@ function disconnect(socket) {
 function authentication(socket, next) {
   let token = socket.handshake.query.token;
 
-  console.log('authenticating socket ' + socket.id + ' with token ' + token + '. ip address is ' + socket.request.connection.remoteAddress);
+  console.log('authenticating socket ' + socket.id + ' with token ' + token + ', IP address is ' + socket.request.connection.remoteAddress);
   
   if(!token) {
     next({'message': 'Please provide a token.'});
