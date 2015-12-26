@@ -13,5 +13,14 @@ function init(done){
 		storage.init,
 		sockets.init
 	];
-	async.series(tasks, done);
+
+	async.series(tasks, function(err){
+    if(err){
+      console.log(err);
+    } 
+
+    if(done){
+      done(err);
+    }
+  });
 };

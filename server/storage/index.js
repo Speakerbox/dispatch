@@ -15,5 +15,7 @@ module.exports = {
 };
 
 function init(done) {
-  mongoose.connect(url, done);
+  mongoose.connect(url);
+  mongoose.connection.once('open', done);
+  mongoose.connection.on('error', done);
 }
