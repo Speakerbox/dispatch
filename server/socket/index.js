@@ -34,7 +34,9 @@ function connect(socket) {
 
   ioStream(socket).on('pickup', function(stream, data) {
     console.log('stream has been started');
-    //stream.pipe();
+    stream.on('data', function(data) {
+      //process.stdout.write(data);
+    });
   });
 
   connectionService.connectionOpened(params);
