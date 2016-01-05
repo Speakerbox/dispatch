@@ -2,7 +2,7 @@
 
 let async = require('async');
 let storage = require('./storage');
-let sockets = require('./sockets');
+let socket = require('./socket');
 
 module.exports = {
 	init: init
@@ -11,7 +11,7 @@ module.exports = {
 function init(done){
 	var tasks = [
 		storage.init,
-		sockets.init
+		socket.init
 	];
 
 	async.series(tasks, function(err){

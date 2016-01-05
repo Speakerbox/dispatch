@@ -2,6 +2,7 @@
 
 let expect = require('chai').expect;
 let ioClient = require('socket.io-client');
+let ioStream - require('socket.io-stream');
 let nconf = require('nconf');
 let socketUrl = nconf.get('socket:url');
 let seed = require('./seed');
@@ -9,15 +10,16 @@ let mongoose = require('mongoose');
 let Connection = mongoose.model('Connection');
 
 describe('Websocket', function() {
-  beforeEach(seed);
-
   let socket;
   let socketOptions = {
     'reconnection': false,
     'force new connection': true
   };
 
+  beforeEach(seed);
+
   describe('onConnect()', function(){
+
     it('should not connect without a token', function(done) {
       socket = ioClient.connect(socketUrl, socketOptions);
 
@@ -49,7 +51,8 @@ describe('Websocket', function() {
   });
 
   describe('onDisconnect()', function(){
-    beforeEach(function(done){
+
+    beforeEach(function(done) {
       let url = socketUrl + '?token=ayzWzvCbWVgWrrQyooQrwGtnXMNYDd';
       socket = ioClient.connect(url, socketOptions);
 
@@ -59,11 +62,12 @@ describe('Websocket', function() {
     it('should log the disconnect event', function(done) {
       let url = socketUrl + '?token=ayzWzvCbWVgWrrQyooQrwGtnXMNYDd';
       socket = ioClient.connect(url, socketOptions);
+
       socket.disconnect(function(){
         console.log('disconnected');
       });
 
-      Connection.findOne({socketId: socket.id}, function(err, doc){
+      Connection.findOne({socketId: socket.id}, function(err, doc) {
         console.log(err, doc);
         done();
       });

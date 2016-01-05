@@ -2,6 +2,7 @@
 
 let nconf = require('nconf');
 let io = require('socket.io')();
+let ioStream = require('socket.io-stream');
 let port = nconf.get('socket:port');
 let channelGuideService = require('../services/channel-guide');
 let connectionService = require('../services/connection');
@@ -29,6 +30,11 @@ function connect(socket) {
 
   socket.on('disconnect', function(message){
     disconnect(socket);
+  });
+
+  ioStream(socket).on('pickup', function(stream, data) {
+    console.log('stream has been started');
+    //stream.pipe();
   });
 
   connectionService.connectionOpened(params);
