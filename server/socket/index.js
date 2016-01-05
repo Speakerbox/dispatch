@@ -3,6 +3,7 @@
 let nconf = require('nconf');
 let io = require('socket.io')();
 let ioStream = require('socket.io-stream');
+let broadcastStream = ioStream.createStream();
 let port = nconf.get('socket:port');
 let channelGuideService = require('../services/channel-guide');
 let connectionService = require('../services/connection');
@@ -32,11 +33,10 @@ function connect(socket) {
     disconnect(socket);
   });
 
-  ioStream(socket).on('pickup', function(stream, data) {
-    console.log('stream has been started');
-    stream.on('data', function(data) {
-      //process.stdout.write(data);
-    });
+  ioStream(socket).emit('receiveAudio', broadcastStream);
+
+  ioStream(socket).on('streamAudio', function(stream, data) {
+    stream.pipe(broadcastStream);
   });
 
   connectionService.connectionOpened(params);
